@@ -3,23 +3,31 @@ from get import *
 from choice import *
 from convert import *
 from historique import *
-# import sys
+from prefere import *
+from fichier import *
 
-country_names = get_country_names()
-print(country_names)
+historical = []
+prefered_choice = []
+country_data = get_country_data()
+json_name = 'annexe_date.json'
+json_fav = 'annexe_fav.json'
+country_json = save_to_json(country_data, json_name)
+preferences = read_to_json(json_name)
 
 while True:
-# if len(sys.argv) <= 2:
+    prefered_country(preferences, prefered_choice, country_json, json_fav)
+    new_country(preferences, json_name)
+
+    country_names = get_country_names(country_data)
     state_enter = choices_enter(country_names)
     state_output = choices_enter(country_names)
     amount = choices_amount()
-# else:
-#     state_enter = sys.argv[1]
-#     state_output = sys.argv[2]
-#     amount = float(sys.argv[3])
 
-    rate = get_country_rates(state_enter, state_output)
+    rate = get_country_rates(country_data, state_enter, state_output)
     total = convert(amount, rate, state_output)
-    total_print = (f"Pour {amount} {state_enter} vous récupererez {total}")
+    total_print = f"Pour {amount} {state_enter} vous récupérerez {total} \n"
     print(total_print)
-    # historique(total_print)
+
+    historical = historique(historical, total_print)
+
+

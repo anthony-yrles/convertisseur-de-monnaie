@@ -1,14 +1,16 @@
 from forex_python.converter import CurrencyRates
 
-def get_country_names():
+def get_country_data():
     c = CurrencyRates()
     rates = c.get_rates('')
-    country_names = list(rates.keys())
+    country_data = dict(rates)
+    return country_data
 
-    return country_names
+def copy_country_data(country_data):
+    return dict(country_data)
 
-def get_country_rates(state_enter, state_output):
-    c = CurrencyRates()
-    rates = c.get_rate(state_enter, state_output)
+def get_country_names(country_data):
+    return list(country_data.keys())
 
-    return rates
+def get_country_rates(country_data, state_enter, state_output):
+    return country_data[state_output] / country_data[state_enter]
