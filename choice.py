@@ -23,5 +23,4 @@ def choices_amount():
             break
         except ValueError:
             print("Merci d'entrer un nombre valide.")
-
     return amount
